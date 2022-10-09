@@ -1,4 +1,4 @@
-FROM golang:1.19.1 as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.19.1 as builder
 
 ARG TARGETOS TARGETARCH
 ENV CGO_ENABLED=0 
