@@ -1,15 +1,9 @@
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.19.1 as builder
+FROM golang:1.19.1 as builder
 
-RUN apt update && apt install unzip -y 
-
-ENV CGO_ENABLED=0 
-ENV GOOS=linux 
-ENV GO111MODULE=on
-
-ARG TARGETPLATFORM
-RUN go env
+ARG TARGETOS TARGETARCH
 
 WORKDIR /app
+
 # Copy the Go Modules manifests
 COPY go.mod go.mod
 COPY go.sum go.sum
@@ -22,10 +16,13 @@ COPY utils/ utils/
 COPY controllers/ controllers/
 COPY models/ models/
 
-RUN go build -a -o semi-task main.go
+RUN GOOS=$TARGETOS GOARCH=$TARGETARCH go build -a -o semi-task main.go
 
-FROM golang:1.19.1-alpine3.15
+FROM gcr.io/distroless/base-debian10
+
 WORKDIR /
 COPY --from=builder /app/semi-task .
 
-CMD ["/semi-task"]
+USER nonroot:nonroot
+
+ENTRYPOINT ["/semi-task"]
