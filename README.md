@@ -41,6 +41,9 @@ cat /etc/hosts
 
 #### Deploy to minikube `semi-task`
 
+- kube config path `~/.kube/config` is required 
+- kube context is required to be `semi-task`
+
 ```
 cd terraform
 terraform init
@@ -52,7 +55,9 @@ terraform apply -auto-approve
 ## Notes
 - For docker compose .env file supplies the password used to intiate the root and app databases
 - For minikube-terraform the random provider is used to create the passwords, then handled by the helm provider
-
+- Helm charts are at /charts one for the application and for the database
 
 ## Potential Improvements
 - Support replication for mongodb.
+- Retry logic on app db connect and ping
+- Terraform hard-coded contexts and config paths
