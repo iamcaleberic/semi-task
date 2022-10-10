@@ -11,6 +11,7 @@ services:
       MONGODB_MOVIES_COLLECTION: $MONGODB_MOVIES_COLLECTION
       PORT: $PORT
       GIN_MODE: $GIN_MODE
+    restart: unless-stopped
     depends_on:
       - mongo
 
