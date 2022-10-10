@@ -51,17 +51,16 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
-    {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: chart-example.local
+    - host: semi-task.local
       paths:
         - path: /
+          pathType: Prefix
           backend:
-            serviceName: chart-example.local
+            # serviceName: semi-task
             servicePort: 80
   tls: []
   #  - secretName: chart-example-tls
@@ -88,3 +87,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+credentials: 
+  MONGODB_DATABASE: c2VtaS10YXNr
+  MONGODB_URI: bW9uZ29kYjovL2FwcDpkdW1teWFwcEBtb25nby5tb25nbzoyNzAxNw==
