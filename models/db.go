@@ -28,12 +28,7 @@ func CreateDBClient() *mongo.Client {
 		panic(err)
 	}
 
-	// Ping the primary
-	if err := client.Ping(ctx, readpref.Primary()); err != nil {
-		panic(err)
-	}
-
-	log.Info("Database:Successfully connected and pinged.")
+	log.Info("DB: Successfully connected.")
 
 	return client
 }
@@ -47,4 +42,15 @@ func GetCollection(collectionName string) *mongo.Collection {
 
 	collection := DBClient.Database(dbName).Collection(collectionName)
 	return collection
+}
+
+func Ping() bool {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	if err := DBClient.Ping(ctx, readpref.Primary()); err != nil {
+		log.Panic("DB unreachable: ", err)
+	}
+
+	log.Info("DB: Successfully pinged.")
+	return true
 }
