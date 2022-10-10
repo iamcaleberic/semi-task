@@ -15,6 +15,7 @@ type Movie struct {
 	ReleaseDate     string             `json:"release_date"`
 }
 
+// input used to marshal for POST /movies endpoint
 type CreateMovieInput struct {
 	Title           string   `json:"title" binding:"required"`
 	Genre           string   `json:"genre" binding:"required"`

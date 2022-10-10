@@ -44,6 +44,7 @@ func GetCollection(collectionName string) *mongo.Collection {
 	return collection
 }
 
+// used by /readyz endpoint, used to gauge app readiness/liveliness
 func Ping() bool {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
