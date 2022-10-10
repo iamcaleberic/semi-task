@@ -1,3 +1,2 @@
 locals {
-    mongo_uri = ""
 }
