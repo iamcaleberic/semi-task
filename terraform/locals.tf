@@ -1,0 +1,3 @@
+locals {
+    mongo_uri = ""
+}
