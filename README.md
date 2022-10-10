@@ -28,6 +28,11 @@ Movie gallery API
 
  - API should be available at `http://localhost:$PORT`, `$PORT` is set `.env` file; default `3000`
 
+ ```
+curl http://localhost:3000
+curl -X POST http://localhost:3000/movies -d @data.json
+```
+
 #### Minikube (k8s)
 - minikube `semi-task` profile is required
 
@@ -50,7 +55,12 @@ terraform init
 terraform apply -auto-approve
 ```
 
-- API available at semi-task.local being relayed by the ingress.
+- API available at `http://semi-task.local` being relayed by the ingress.
+
+```
+curl http://semi-task.local
+curl -X POST http://semi-task.local/movies -d @data.json
+```
 
 ## Notes
 - For docker compose .env file supplies the password used to intiate the root and app databases
